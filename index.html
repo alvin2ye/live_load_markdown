@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Live load markdown</title>
+	</head>
+	<body>
+
+	<div class="markdown">
+	</div>
+    
+	<script type="text/javascript" src="http://cdn.staticfile.org/jquery/1.4.4/jquery.min.js"></script>
+	<script type="text/javascript">
+
+    var f = function() {
+      $.ajax({
+        url: '/get_update',
+        complete: function(e1,e2) { 
+          if(e2 == "timeout") f();
+          if(e2 == "success") {
+            $("div.markdown").html(e1.response);
+            f();
+          } // if
+        } // complete
+      }) // ajax
+    } // f
+    f();
+	</script>
+  	</body>
+</html>
